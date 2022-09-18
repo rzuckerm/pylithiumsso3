@@ -17,11 +17,11 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    
+
     - uses: actions/setup-python@v2
       with:
         python-version: ${{ matrix.python-version }}
-        
+
     - uses: snok/install-poetry@v1
       with:
         version: 1.2.1
@@ -31,10 +31,14 @@ jobs:
     - name: Lint
       run: make lint
       if: ${{ matrix.python-version == '3.8' && matrix.os == 'ubuntu-latest' }}
-      
+
     - name: Test
       run: make test
 
     - name: Doc
       run: make doc
       if: ${{ matrix.python-version == '3.8' && matrix.os == 'ubuntu-latest' }}
+
+    - name: Publish doc
+      run: make publish-doc
+      if: ${{ github.ref == 'refs/heads/main' && matrix.python-version == '3.8' && matrix.os == 'ubuntu-latest' }}
