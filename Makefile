@@ -44,7 +44,7 @@ clean:
 
 .PHONY: doc
 doc: $(META_INSTALL)
-	sphinx-build -b html docs $(META)/docs
+	$(RUN) sphinx-build -b html docs $(META)/docs
 
 .PHONY: format
 format: $(META_INSTALL)

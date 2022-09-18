@@ -1,14 +1,55 @@
 """
-Python implementation of lithium_sso.php
+Python implementation of lithium_sso.php, which has the following copyright:
 
-Copyright (C) 2006 Lithium Technologies, Inc.
-Emeryville, California, U.S.A.  All Rights Reserved.
+    Copyright (C) 2006 Lithium Technologies, Inc.
+    Emeryville, California, U.S.A.  All Rights Reserved.
 
-This software is the  confidential and proprietary information
-of  Lithium  Technologies,  Inc.  ("Confidential Information")
-You shall not disclose such Confidential Information and shall
-use  it  only in  accordance  with  the terms of  the  license
-agreement you entered into with Lithium.
+    This software is the  confidential and proprietary information
+    of  Lithium  Technologies,  Inc.  ("Confidential Information")
+    You shall not disclose such Confidential Information and shall
+    use  it  only in  accordance  with  the terms of  the  license
+    agreement you entered into with Lithium.
+
+Example Usage:
+
+.. code-block:: python
+
+    # Secret SSO key (128-bit or 256-bit) provided by Lithium
+    sso_key = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+
+    # (Optional) Secret PrivacyGuard key (128-bit or 256-bit) *NOT* to be shared with Lithium
+    pg_key = ""
+
+    # Initialize Lithium SSO Client
+    from pylithiumsso3.lithium_sso import LithiumSSO
+
+    lithium = LithiumSSO("example", ".example.com", sso_key)
+
+    # (Optional) Additional user profile settings to pass to Lithium
+    settings = {}
+
+    # Example: Set the user's homepage URL
+    settings["profile.url_homepage"] = "http://myhomepage.example.com"
+
+    # Example: Grant the user the Moderator role
+    settings["roles.grant"] = "Moderator"
+
+    # Create the authentication token
+    req_user_agent = "Mozilla/5.0"
+    req_referer = "example.com"
+    req_remote_addr = "10.11.12.13"
+    li_token = lithium.get_auth_token_value(
+        "1000", "myscreenname", "myemail@example.com", settings,
+        req_user_agent, req_referer, req_remote_addr
+    )
+
+    # The token can either be passed directly through HTTP GET/POST, or through cookies.
+
+    # If PrivacyGuard is enabled, you must initialize the PrivacyGuard key, and call the
+    # encryption function for each token which requires PG encryption. Example:
+    lithium.init_smr(pg_hex_key)
+    pg_enc_parameter = lithium.get_smr_field("myemail@example.com");
+    li_token = lithium.get_auth_token("1000", "myscreenname", pg_enc_parameter, settings)
 """
 
 from typing import Optional, Dict, Any
@@ -26,47 +67,6 @@ from Crypto.Util import Padding
 
 class LithiumSSO:
     """
-    Example Usage:
-
-    .. code-block:: python
-
-        # Secret SSO key (128-bit or 256-bit) provided by Lithium
-        sso_key = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-
-        # (Optional) Secret PrivacyGuard key (128-bit or 256-bit) *NOT* to be shared with Lithium
-        pg_key = ""
-
-        # Initialize Lithium SSO Client
-        from pylithiumsso3.lithium_sso import LithiumSSO
-
-        lithium = LithiumSSO("example", ".example.com", sso_key)
-
-        # (Optional) Additional user profile settings to pass to Lithium
-        settings = {}
-
-        # Example: Set the user's homepage URL
-        settings["profile.url_homepage"] = "http://myhomepage.example.com"
-
-        # Example: Grant the user the Moderator role
-        settings["roles.grant"] = "Moderator"
-
-        # Create the authentication token
-        req_user_agent = "Mozilla/5.0"
-        req_referer = "example.com"
-        req_remote_addr = "10.11.12.13"
-        li_token = lithium.get_auth_token_value(
-            "1000", "myscreenname", "myemail@example.com", settings,
-            req_user_agent, req_referer, req_remote_addr
-        )
-
-        # The token can either be passed directly through HTTP GET/POST, or through cookies.
-
-        # If PrivacyGuard is enabled, you must initialize the PrivacyGuard key, and call the
-        # encryption function for each token which requires PG encryption. Example:
-        lithium.init_smr(pg_hex_key)
-        pg_enc_parameter = lithium.get_smr_field("myemail@example.com");
-        li_token = lithium.get_auth_token("1000", "myscreenname", pg_enc_parameter, settings)
-
     :ivar client_id: The client or community id to create an SSO token for
     :ivar client_domain: The domain name for this token, used when transporting via cookies
         (e.g., ".lithium.com")
@@ -238,19 +238,32 @@ class LithiumSSO:
 
         :param value: Lithium authentication token to decode
         :return: Dictionary containing the following:
+
             * "version" - Lithium token version
+
             * "server_id" - The server ID
+
             * "tsid" - The timestamp ID
+
             * "timestamp" - The timestamp of the request
+
             * "req_user_agent" - User agent from request
+
             * "req_referer" - Referrer from request
+
             * "req_remote_addr" - Remote address from request
+
             * "client_domain" - The domain name for this token, used when transporting via
               cookies (e.g., ".lithium.com")
+
             * "client_id" - The client or community id to create an SSO token for
+
             * "unique_id" - A non-changable id used to uniquely identify this user globally
+
             * "login" - The login name or screen name for this user
+
             * "email" - The email address for this user
+
             * "settings" - Profile settings where the key is the setting name and the value is
               the setting value
         :raises: ValueError if decoded value of Lithium authentication token is invalid
