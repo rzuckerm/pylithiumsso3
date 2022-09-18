@@ -3,8 +3,11 @@ TESTS := test
 CONFIG_FILE = pyproject.toml
 ALL = $(PACKAGE) $(TESTS)
 RUN = poetry run
+INSTALL = poetry install
 
 META = .meta
+META_INSTALL = $(META)/.install
+
 PYTEST_ARGS ?= -vvl \
 	--cov=$(PACKAGE) \
 	--cov-branch \
@@ -26,6 +29,10 @@ help:
 $(META):
 	mkdir -p $@
 
+$(META_INSTALL): $(CONFIG_FILE) | $(META)
+	poetry install
+	touch $@
+
 .PHONY: clean
 clean:
 	rm -rf $(PACKAGE)/__pycache__/ \
@@ -36,35 +43,35 @@ clean:
 	rm -f .coverage .coverage.*
 
 .PHONY: doc
-doc: | $(META)
+doc: $(META_INSTALL)
 	sphinx-build -b html docs $(META)/docs
 
 .PHONY: format
-format:
+format: $(META_INSTALL)
 	$(RUN) black $(ALL)
 
 .PHONY: lint
 lint: lint-black lint-pylint lint-mypy
 
 .PHONY: lint-black
-lint-black:
+lint-black: $(META_INSTALL)
 	@echo "*** Linting with black ***"
 	$(RUN) black --check $(ALL)
 	@echo ""
 
 .PHONY: lint-pylint
-lint-pylint:
+lint-pylint: $(META_INSTALL)
 	@echo "*** Linting with pylint ***"
 	$(RUN) pylint --rcfile $(CONFIG_FILE) $(PACKAGE)
 	$(RUN) pylint --rcfile $(TESTS)/$(CONFIG_FILE) $(TESTS)
 	@echo ""
 
 .PHONY: lint-mypy
-lint-mypy:
+lint-mypy: $(META_INSTALL)
 	@echo "*** Linting with mypy ***"
 	$(RUN) mypy $(ALL)
 	@echo ""
 
 .PHONY: test
-test:
+test: $(META_INSTALL)
 	$(RUN) pytest $(PYTEST_ARGS)
