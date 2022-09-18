@@ -30,11 +30,11 @@ jobs:
 
     - name: Lint
       run: make lint
-      if: matrix.python-version == "3.8" && matrix.os == "ubuntu-latest"
+      if: ${{ matrix.python-version == '3.8' && matrix.os == 'ubuntu-latest' }}
       
     - name: Test
       run: make test
 
     - name: Doc
       run: make doc
-      if: matrix.python-version == "3.8" && matrix.os == "ubuntu-latest"
+      if: ${{ matrix.python-version == '3.8' && matrix.os == 'ubuntu-latest' }}
