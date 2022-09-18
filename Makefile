@@ -78,6 +78,7 @@ lint-mypy: $(META_INSTALL)
 .PHONY: publish-doc
 publish-doc:
 	@echo "*** Publishing docs ***"
+	chmod +x publish_doc.sh
 	./publish_doc.sh "$(META)/docs"
 	@echo ""
 
