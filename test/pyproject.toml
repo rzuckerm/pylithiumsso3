@@ -1,0 +1,13 @@
+[tool.pylint.format]
+max-line-length = 100
+
+[tool.pylint.message]
+disable = [
+    "missing-module-docstring",
+    "missing-function-docstring",
+    "redefined-outer-name",
+    "protected-access"
+]
+
+[tool.pylint.basic]
+good-names = ["e", "iv"]
