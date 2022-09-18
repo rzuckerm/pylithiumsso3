@@ -2,7 +2,13 @@ PACKAGE := pylithiumsso3
 TESTS := test
 CONFIG_FILE = pyproject.toml
 ALL = $(PACKAGE) $(TESTS)
+
+ifeq ($(VENV),)
 RUN = poetry run
+else
+RUN = $(VENV)/bin/poetry run
+endif
+
 META = .meta
 PYTEST_ARGS ?= -vvl \
 	--cov=$(PACKAGE) \
@@ -25,6 +31,12 @@ help:
 $(META):
 	mkdir -p $@
 
+ifneq ($(VENV),)
+$(VENV):
+	virtualenv $(VENV)
+	$(VENV)/bin/pip install poetry
+endif
+
 .PHONY: clean
 clean:
 	rm -rf $(PACKAGE)/__pycache__/ \
@@ -39,31 +51,31 @@ doc: | $(META)
 	sphinx-build -b html docs $(META)/docs
 
 .PHONY: format
-format:
+format: | $(VENV)
 	$(RUN) black $(ALL)
 
 .PHONY: lint
 lint: lint-black lint-pylint lint-mypy
 
 .PHONY: lint-black
-lint-black:
+lint-black: | $(VENV)
 	@echo "*** Linting with black ***"
 	$(RUN) black --check $(ALL)
 	@echo ""
 
 .PHONY: lint-pylint
-lint-pylint:
+lint-pylint: | $(VENV)
 	@echo "*** Linting with pylint ***"
 	$(RUN) pylint --rcfile $(CONFIG_FILE) $(PACKAGE)
 	$(RUN) pylint --rcfile $(TESTS)/$(CONFIG_FILE) $(TESTS)
 	@echo ""
 
 .PHONY: lint-mypy
-lint-mypy:
+lint-mypy: | $(VENV)
 	@echo "*** Linting with mypy ***"
 	$(RUN) mypy $(ALL)
 	@echo ""
 
 .PHONY: test
-test: | $(META)
+test: | $(VENV) $(META)
 	$(RUN) pytest $(PYTEST_ARGS)
