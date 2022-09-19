@@ -5,7 +5,6 @@ then
     REMOTE=$(echo "${REMOTE}" | sed 's!!https://!https://'"rzuckerm:${GITHUB_TOKEN}"'@!')
 fi
 
-set -x
 cd "$1"
 git init .
 git config user.email "automation@example.com"
@@ -14,5 +13,5 @@ set +x
 git remote add origin "${REMOTE}"
 set -x
 git add .
-git commit -m "Generated documentation"
-git push -f origin master:gh-pages
+echo git commit -m "Generated documentation"
+echo git push -f origin master:gh-pages
