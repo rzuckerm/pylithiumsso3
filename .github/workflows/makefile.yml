@@ -6,9 +6,6 @@ on:
   pull_request:
     branches: [ "main" ]
 
-env:
-    GITHUB_TOKEN: ${{ secrets.REPO_TOKEN }}
-
 jobs:
   ci:
     strategy:
@@ -43,5 +40,8 @@ jobs:
       if: ${{ matrix.python-version == '3.8' && matrix.os == 'ubuntu-latest' }}
 
     - name: Publish doc
-      run: make publish-doc
+      uses: JamesIves/github-pages-deploy-action@v4
+      with:
+        folder: .meta/docs
+        token: ${{ secrets.REPO_TOKEN }}
       if: ${{ github.ref == 'refs/heads/main' && matrix.python-version == '3.8' && matrix.os == 'ubuntu-latest' }}

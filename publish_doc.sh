@@ -10,7 +10,7 @@ git init .
 git config user.email "automation@example.com"
 git config user.name "Automation"
 set +x
-git remote add origin "${REMOTE}"
+git remote --push set-url origin "${REMOTE}"
 set -x
 git add .
 git commit -m "Generated documentation"
