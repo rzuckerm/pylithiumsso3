@@ -4,6 +4,7 @@ version = "0.1.0"
 description = "Python 3 port of lithium_sso.php"
 authors = ["Ron Zuckerman"]
 readme = "README.md"
+license = "LICENSE.txt"
 
 [tool.poetry.dependencies]
 python = "^3.8"

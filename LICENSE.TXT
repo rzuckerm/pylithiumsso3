@@ -1,0 +1,12 @@
+LICENSE FILE DISCLOSURE STATEMENT
+=============================================
+This LICENSE.TXT file sets forth the general licensing terms and references for the SSOClient Java software provided by Lithium Technologies, Inc.  Your use of the software components provided herewith (the “Software”) is subject to the terms set forth herein and any associated license that you have entered into with Lithium.  Except as may be granted by separate express written agreement, this file provides no license to any Lithium patents, trademarks, copyrights, or other intellectual property.
+
+=======================================
+ Lithium Technologies Copyright Notice
+=======================================
+
+SSOClient.java
+Copyright (c) 2013 Lithium Technologies, Inc.
+San Francisco, California, U.S.A. All Rights Reserved
+The Software is the confidential and proprietary information of Lithium Technologies, Inc. (“Confidential Information”).  You shall not disclose such Confidential Information and shall use it only in accordance with the terms of the license agreement you entered into with Lithium.

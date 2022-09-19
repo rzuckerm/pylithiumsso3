@@ -1,5 +1,5 @@
 project = "pylithiumsso3"
-copyright = ""
+copyright = "Lithium Technologies"
 author = ""
 
 version = ""
