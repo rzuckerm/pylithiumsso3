@@ -1,5 +1,5 @@
 """
-Python implementation of lithium_sso.php, which has the following copyright:
+Python implementation of ``lithium_sso.php``, which has the following copyright:
 
     Copyright (C) 2006 Lithium Technologies, Inc.
     Emeryville, California, U.S.A.  All Rights Reserved.

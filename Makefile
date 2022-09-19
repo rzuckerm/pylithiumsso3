@@ -23,7 +23,6 @@ help:
 	@echo "lint-black  - Lint code with black"
 	@echo "lint-mypy   - Lint code with mypy"
 	@echo "lint-pylint - Lint code with pylint"
-	@echo "publish-doc - Publish documentation"
 	@echo "test        - Run unit tests with pytest."
 	@echo "              Use PYTEST_ARGS to override options"
 
@@ -73,13 +72,6 @@ lint-pylint: $(META_INSTALL)
 lint-mypy: $(META_INSTALL)
 	@echo "*** Linting with mypy ***"
 	$(RUN) mypy $(ALL)
-	@echo ""
-
-.PHONY: publish-doc
-publish-doc:
-	@echo "*** Publishing docs ***"
-	chmod +x publish_doc.sh
-	./publish_doc.sh "$(META)/docs"
 	@echo ""
 
 .PHONY: test

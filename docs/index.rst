@@ -1,9 +1,5 @@
 pylithiumsso3
 =============
 
-Python 3 port of lithium_sso.php
-
-.. toctree::
-
-    install
-    api
+.. automodule:: pylithiumsso3.lithium_sso
+    :members:
