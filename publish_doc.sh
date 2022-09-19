@@ -13,5 +13,5 @@ set +x
 git remote add origin "${REMOTE}"
 set -x
 git add .
-echo git commit -m "Generated documentation"
-echo git push -f origin master:gh-pages
+git commit -m "Generated documentation"
+git push -f origin master:gh-pages
