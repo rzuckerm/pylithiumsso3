@@ -49,7 +49,7 @@ Example Usage:
     # encryption function for each token which requires PG encryption. Example:
     lithium.init_smr(pg_hex_key)
     pg_enc_parameter = lithium.get_smr_field("myemail@example.com");
-    li_token = lithium.get_auth_token("1000", "myscreenname", pg_enc_parameter, settings)
+    li_token = lithium.get_auth_token_value("1000", "myscreenname", pg_enc_parameter, settings)
 """
 
 from typing import Optional, Dict, Any
