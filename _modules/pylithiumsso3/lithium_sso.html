@@ -113,7 +113,7 @@
 <span class="sd">    # encryption function for each token which requires PG encryption. Example:</span>
 <span class="sd">    lithium.init_smr(pg_hex_key)</span>
 <span class="sd">    pg_enc_parameter = lithium.get_smr_field(&quot;myemail@example.com&quot;);</span>
-<span class="sd">    li_token = lithium.get_auth_token(&quot;1000&quot;, &quot;myscreenname&quot;, pg_enc_parameter, settings)</span>
+<span class="sd">    li_token = lithium.get_auth_token_value(&quot;1000&quot;, &quot;myscreenname&quot;, pg_enc_parameter, settings)</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Any</span>

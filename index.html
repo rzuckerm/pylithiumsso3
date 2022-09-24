@@ -113,7 +113,7 @@ agreement you entered into with Lithium.</p>
 <span class="c1"># encryption function for each token which requires PG encryption. Example:</span>
 <span class="n">lithium</span><span class="o">.</span><span class="n">init_smr</span><span class="p">(</span><span class="n">pg_hex_key</span><span class="p">)</span>
 <span class="n">pg_enc_parameter</span> <span class="o">=</span> <span class="n">lithium</span><span class="o">.</span><span class="n">get_smr_field</span><span class="p">(</span><span class="s2">&quot;myemail@example.com&quot;</span><span class="p">);</span>
-<span class="n">li_token</span> <span class="o">=</span> <span class="n">lithium</span><span class="o">.</span><span class="n">get_auth_token</span><span class="p">(</span><span class="s2">&quot;1000&quot;</span><span class="p">,</span> <span class="s2">&quot;myscreenname&quot;</span><span class="p">,</span> <span class="n">pg_enc_parameter</span><span class="p">,</span> <span class="n">settings</span><span class="p">)</span>
+<span class="n">li_token</span> <span class="o">=</span> <span class="n">lithium</span><span class="o">.</span><span class="n">get_auth_token_value</span><span class="p">(</span><span class="s2">&quot;1000&quot;</span><span class="p">,</span> <span class="s2">&quot;myscreenname&quot;</span><span class="p">,</span> <span class="n">pg_enc_parameter</span><span class="p">,</span> <span class="n">settings</span><span class="p">)</span>
 </pre></div>
 </div>
 <dl class="py class">
