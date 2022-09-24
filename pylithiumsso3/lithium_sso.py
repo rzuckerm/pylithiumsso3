@@ -396,6 +396,19 @@ class LithiumSSO:
 
         return ""
 
+    def decode_smr_field(self, value: str) -> str:
+        """
+        PrivacyGuard parameter decrypt
+
+        :param value: the string to return a PrivacyGuard decrypted token for
+        :return: the PrivacyGuard decrypted value of string or "" if no key set
+        """
+
+        if self.pg_key:
+            return self._decode(value, self.pg_key)
+
+        return ""
+
     @staticmethod
     def _get_server_value(value: str) -> str:
         """

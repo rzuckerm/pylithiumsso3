@@ -434,10 +434,26 @@ def test_get_smr_field_no_pg_key():
     assert not client.get_smr_field("foo")
 
 
-def test_get_smr_field_with_pg_key():
+def test_decode_smr_field_no_pg_key():
+    client = LithiumSSO("why-client", ".why-domain", "0123456789ABCDEF123456789ABCDEF0")
+    assert not client.decode_smr_field("foo")
+
+
+@pytest.mark.parametrize(
+    "value,key",
+    [
+        ("bar", "123456789ABCDEF023456789ABCDEF01"),
+        ("foo", "23456789ABCDEF013456789ABCDEF012"),
+    ],
+)
+def test_get_and_decode_smr_field_with_pg_key(value, key):
     client = LithiumSSO("who-client", ".who-domain", "0123456789ABCDEF123456789ABCDEF0")
-    client.init_smr("123456789ABCDEF023456789ABCDEF01")
-    assert client.get_smr_field("bar").startswith("~2")
+    client.init_smr(key)
+    encoded_value = client.get_smr_field(value)
+    assert encoded_value != value
+
+    decoded_value = client.decode_smr_field(encoded_value)
+    assert decoded_value == value
 
 
 @pytest.mark.parametrize(

@@ -9,6 +9,7 @@ META = .meta
 META_INSTALL = $(META)/.install
 
 PYTEST_ARGS ?= -vvl \
+	--color=yes \
 	--cov=$(PACKAGE) \
 	--cov-branch \
 	--cov-report term-missing \
