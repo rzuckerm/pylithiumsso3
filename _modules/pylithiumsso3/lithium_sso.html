@@ -460,6 +460,19 @@
 
         <span class="k">return</span> <span class="s2">&quot;&quot;</span></div>
 
+<div class="viewcode-block" id="LithiumSSO.decode_smr_field"><a class="viewcode-back" href="../../index.html#pylithiumsso3.lithium_sso.LithiumSSO.decode_smr_field">[docs]</a>    <span class="k">def</span> <span class="nf">decode_smr_field</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        PrivacyGuard parameter decrypt</span>
+
+<span class="sd">        :param value: the string to return a PrivacyGuard decrypted token for</span>
+<span class="sd">        :return: the PrivacyGuard decrypted value of string or &quot;&quot; if no key set</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">pg_key</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_decode</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">pg_key</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="s2">&quot;&quot;</span></div>
+
     <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">_get_server_value</span><span class="p">(</span><span class="n">value</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
