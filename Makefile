@@ -16,7 +16,6 @@ PYTEST_ARGS ?= -vvl \
 	--cov-report=xml:$(META)/coverage.xml
 
 help:
-	@echo "build       - Build package"
 	@echo "clean       - Delete output files"
 	@echo "doc         - Create documentation with sphinx"
 	@echo "format      - Format code with black"
@@ -33,12 +32,6 @@ $(META):
 $(META_INSTALL): $(CONFIG_FILE) | $(META)
 	poetry install
 	touch $@
-
-.PHONY: build
-build: $(META_INSTALL)
-	@echo "*** Building package ***"
-	poetry build
-	@echo ""
 
 .PHONY: clean
 clean:
