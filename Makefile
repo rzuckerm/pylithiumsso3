@@ -3,7 +3,6 @@ TESTS := test
 CONFIG_FILE = pyproject.toml
 ALL = $(PACKAGE) $(TESTS)
 RUN = poetry run
-INSTALL = poetry install
 
 META = .meta
 META_INSTALL = $(META)/.install
@@ -17,6 +16,7 @@ PYTEST_ARGS ?= -vvl \
 	--cov-report=xml:$(META)/coverage.xml
 
 help:
+	@echo "build       - Build package"
 	@echo "clean       - Delete output files"
 	@echo "doc         - Create documentation with sphinx"
 	@echo "format      - Format code with black"
@@ -34,13 +34,20 @@ $(META_INSTALL): $(CONFIG_FILE) | $(META)
 	poetry install
 	touch $@
 
+.PHONY: build
+build: $(META_INSTALL)
+	@echo "*** Building package ***"
+	poetry build
+	@echo ""
+
 .PHONY: clean
 clean:
 	rm -rf $(PACKAGE)/__pycache__/ \
 		$(TESTS)/__pycache__/ \
 		$(META)/ \
 		.pytest_cache/ \
-		.mypy_cache/
+		.mypy_cache/ \
+		dist
 	rm -f .coverage .coverage.*
 
 .PHONY: doc
@@ -77,4 +84,6 @@ lint-mypy: $(META_INSTALL)
 
 .PHONY: test
 test: $(META_INSTALL)
+	@echo "*** Running tests ***"
 	$(RUN) pytest $(PYTEST_ARGS)
+	@echo ""

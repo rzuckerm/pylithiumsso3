@@ -5,6 +5,15 @@ description = "Python 3 port of lithium_sso.php"
 authors = ["Ron Zuckerman"]
 readme = "README.md"
 license = "LICENSE.txt"
+homepage = "https://github.com/rzuckerm/pylithiumsso3"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+
+[tool.poetry.urls]
+"Bug Tracker" = "https://github.com/rzuckerm/pylithiumsso3/issues"
+"Documentation" = "https://rzuckerm.github.io/pylithiumsso3/"
 
 [tool.poetry.dependencies]
 python = "^3.8"
