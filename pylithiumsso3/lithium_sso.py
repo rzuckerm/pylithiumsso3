@@ -1,6 +1,6 @@
 """
 Python implementation of ``lithium_sso.php``. License information provided by
-Khoros, LLC:
+Khoros, LLC::
 
     LICENSE FILE DISCLOSURE STATEMENT
     =============================================
