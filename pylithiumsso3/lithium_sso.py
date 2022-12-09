@@ -1,14 +1,28 @@
 """
-Python implementation of ``lithium_sso.php``, which has the following copyright:
+Python implementation of ``lithium_sso.php``. License information provided by
+Khoros, LLC:
 
-    Copyright (C) 2006 Lithium Technologies, Inc.
-    Emeryville, California, U.S.A.  All Rights Reserved.
+    LICENSE FILE DISCLOSURE STATEMENT
+    =============================================
+    This LICENSE.TXT file sets forth the general licensing terms and references for the
+    SSOClient Java software provided by Khoros, LLC. Your use of the software components
+    provided herewith (the “Software”) is subject to the terms set forth herein and any
+    associated license that you have entered into with Khoros.  Except as may be granted
+    by separate express written agreement, this file provides no license to any Lithium
+    patents, trademarks, copyrights, or other intellectual property.
 
-    This software is the  confidential and proprietary information
-    of  Lithium  Technologies,  Inc.  ("Confidential Information")
-    You shall not disclose such Confidential Information and shall
-    use  it  only in  accordance  with  the terms of  the  license
-    agreement you entered into with Lithium.
+    =======================================
+     Khoros, LLC Copyright Notice
+    =======================================
+
+    SSOClient.java
+
+    Copyright (c) 2022 Khoros, LLC, Austin, Texas, U.S.A. All Rights Reserved
+
+    The Software is the confidential and proprietary information of Khoros, LLC
+    (“Confidential Information”).  You shall not disclose such Confidential Information
+    and shall use it only in accordance with the terms of the license agreement you
+    entered into with Lithium.
 
 Example Usage:
 
