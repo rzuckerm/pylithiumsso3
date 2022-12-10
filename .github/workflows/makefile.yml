@@ -24,7 +24,9 @@ jobs:
         virtualenvs-in-project: true
 
     - name: Lint
-      run: make lint
+      run: |
+        source $VENV
+        make lint
     
   test:
     strategy:
@@ -48,7 +50,9 @@ jobs:
         virtualenvs-in-project: true
 
     - name: Test
-      run: make test
+      run: |
+        source $VENV
+        make test
 
   doc:
     runs-on: ubuntu-latest
@@ -67,7 +71,9 @@ jobs:
         virtualenvs-in-project: true
 
     - name: Doc
-      run: make doc
+      run: |
+        source $VENV
+        make doc
 
     - name: Publish doc
       uses: JamesIves/github-pages-deploy-action@v4

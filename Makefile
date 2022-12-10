@@ -8,8 +8,6 @@ RUN = $(POETRY) run
 META = .meta
 META_INSTALL = $(META)/.install
 
-$(shell ls $(HOME)/.local/bin)
-
 PYTEST_ARGS ?= -vvl \
 	--color=yes \
 	--cov=$(PACKAGE) \
@@ -30,7 +28,6 @@ help:
 	@echo "              Use PYTEST_ARGS to override options"
 
 $(META):
-	env | sort
 	mkdir -p $@
 
 $(META_INSTALL): $(CONFIG_FILE) | $(META)
