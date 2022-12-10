@@ -3,9 +3,10 @@ TESTS := test
 CONFIG_FILE = pyproject.toml
 POETRY := poetry
 ALL = $(PACKAGE) $(TESTS)
+
 ifeq ($(OS),Windows_NT)
-ifneq ($(wildcard $(HOME)/.local/poetry),)
-POETRY := $(HOME)/.local/poetry
+ifneq ($(wildcard $(HOME)/.local/bin/poetry),)
+POETRY := $(HOME)/.local/bin/poetry
 endif
 endif
 RUN = $(POETRY) run
