@@ -3,6 +3,7 @@ TESTS := test
 CONFIG_FILE = pyproject.toml
 ALL = $(PACKAGE) $(TESTS)
 
+SHELL := bash
 POETRY := poetry
 RUN = $(POETRY) run
 META = .meta
@@ -28,6 +29,7 @@ help:
 	@echo "              Use PYTEST_ARGS to override options"
 
 $(META):
+	ls ~/.local || true
 	mkdir -p $@
 
 $(META_INSTALL): $(CONFIG_FILE) | $(META)
