@@ -4,7 +4,7 @@ CONFIG_FILE = pyproject.toml
 ALL = $(PACKAGE) $(TESTS)
 
 ifneq ($(VENV),)
-POETRY := source $(VENV)/bin/activate && poetry
+POETRY := source $(VENV) && poetry
 else
 POETRY := poetry
 endif
