@@ -4,10 +4,14 @@ CONFIG_FILE = pyproject.toml
 ALL = $(PACKAGE) $(TESTS)
 
 SHELL := bash
-ifeq ($(wildcard $(HOME)/.local/bin/poetry),)
-POETRY := poetry
-else
+ifeq ($(OS),Windows_NT)
+ifneq ($(GITHUB_PATH),)
 POETRY := $(HOME)/.local/bin/poetry
+else
+POETRY := poetry
+endif
+else
+POETRY := poetry
 endif
 
 RUN = $(POETRY) run
