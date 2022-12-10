@@ -1,8 +1,14 @@
 PACKAGE := pylithiumsso3
 TESTS := test
 CONFIG_FILE = pyproject.toml
+POETRY := poetry
 ALL = $(PACKAGE) $(TESTS)
-RUN = poetry run
+ifeq ($(OS),Windows_NT)
+ifneq ($(wildcard $(HOME)/.local/poetry),)
+POETRY := $(HOME)/.local/poetry
+endif
+endif
+RUN = $(POETRY) run
 
 META = .meta
 META_INSTALL = $(META)/.install
@@ -27,11 +33,10 @@ help:
 	@echo "              Use PYTEST_ARGS to override options"
 
 $(META):
-	env | sort
 	mkdir -p $@
 
 $(META_INSTALL): $(CONFIG_FILE) | $(META)
-	poetry install
+	$(POETRY) install
 	touch $@
 
 .PHONY: clean
