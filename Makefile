@@ -1,16 +1,14 @@
 PACKAGE := pylithiumsso3
 TESTS := test
 CONFIG_FILE = pyproject.toml
-POETRY := poetry
 ALL = $(PACKAGE) $(TESTS)
 
-ifeq ($(OS),Windows_NT)
-$(warn I got here)
 ifneq ($(wildcard $(HOME)/.local/bin/poetry),)
-$(warn I got here 2)
 POETRY := $(HOME)/.local/bin/poetry
+else
+POETRY := poetry
 endif
-endif
+
 RUN = $(POETRY) run
 
 META = .meta
