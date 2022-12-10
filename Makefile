@@ -5,7 +5,9 @@ POETRY := poetry
 ALL = $(PACKAGE) $(TESTS)
 
 ifeq ($(OS),Windows_NT)
+$(warn I got here)
 ifneq ($(wildcard $(HOME)/.local/bin/poetry),)
+$(warn I got here 2)
 POETRY := $(HOME)/.local/bin/poetry
 endif
 endif
