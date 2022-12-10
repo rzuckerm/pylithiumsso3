@@ -3,16 +3,12 @@ TESTS := test
 CONFIG_FILE = pyproject.toml
 ALL = $(PACKAGE) $(TESTS)
 
-ifneq ($(VENV),)
-POETRY := source $(VENV) && poetry
-else
 POETRY := poetry
-endif
-
 RUN = $(POETRY) run
-
 META = .meta
 META_INSTALL = $(META)/.install
+
+$(shell ls $(HOME)/.local/bin)
 
 PYTEST_ARGS ?= -vvl \
 	--color=yes \
