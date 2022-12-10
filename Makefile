@@ -27,6 +27,7 @@ help:
 	@echo "              Use PYTEST_ARGS to override options"
 
 $(META):
+	env | sort
 	mkdir -p $@
 
 $(META_INSTALL): $(CONFIG_FILE) | $(META)
