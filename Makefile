@@ -3,8 +3,8 @@ TESTS := test
 CONFIG_FILE = pyproject.toml
 ALL = $(PACKAGE) $(TESTS)
 
-ifneq ($(wildcard $(HOME)/.local/bin/poetry),)
-POETRY := $(HOME)/.local/bin/poetry
+ifneq ($(VENV),)
+POETRY := source $(VENV)/bin/activate && poetry
 else
 POETRY := poetry
 endif
@@ -34,6 +34,7 @@ help:
 	@echo "              Use PYTEST_ARGS to override options"
 
 $(META):
+	env | sort
 	mkdir -p $@
 
 $(META_INSTALL): $(CONFIG_FILE) | $(META)
