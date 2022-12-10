@@ -4,15 +4,15 @@ CONFIG_FILE = pyproject.toml
 ALL = $(PACKAGE) $(TESTS)
 
 SHELL := bash
-#ifeq ($(OS),Windows_NT)
-#ifneq ($(GITHUB_PATH),)
-#POETRY := /c/Users/runneradmin/.local/venv/Scripts/poetry.exe
-#else
-#POETRY := poetry
-#endif
-#else
+ifeq ($(OS),Windows_NT)
+ifneq ($(GITHUB_PATH),)
+POETRY := /c/Users/runneradmin/.local/venv/Scripts/poetry.exe
+else
 POETRY := poetry
-#endif
+endif
+else
+POETRY := poetry
+endif
 
 RUN = $(POETRY) run
 META = .meta
