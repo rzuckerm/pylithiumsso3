@@ -20,13 +20,11 @@ jobs:
     - uses: snok/install-poetry@v1
       with:
         version: 1.3.0
-        virtualenvs-create: true
-        virtualenvs-in-project: true
+        virtualenvs-create: false
+        virtualenvs-in-project: false
 
     - name: Lint
-      run: |
-        source $VENV
-        make lint
+      run: make lint
     
   test:
     strategy:
@@ -46,13 +44,11 @@ jobs:
     - uses: snok/install-poetry@v1
       with:
         version: 1.3.0
-        virtualenvs-create: true
-        virtualenvs-in-project: true
+        virtualenvs-create: false
+        virtualenvs-in-project: false
 
     - name: Test
-      run: |
-        source $VENV
-        make test
+      run: make test
 
   doc:
     runs-on: ubuntu-latest
@@ -67,13 +63,11 @@ jobs:
     - uses: snok/install-poetry@v1
       with:
         version: 1.3.0
-        virtualenvs-create: true
-        virtualenvs-in-project: true
+        virtualenvs-create: false
+        virtualenvs-in-project: false
 
     - name: Doc
-      run: |
-        source $VENV
-        make doc
+      run: make doc
 
     - name: Publish doc
       uses: JamesIves/github-pages-deploy-action@v4
