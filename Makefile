@@ -6,7 +6,7 @@ ALL = $(PACKAGE) $(TESTS)
 SHELL := bash
 ifeq ($(OS),Windows_NT)
 ifneq ($(GITHUB_PATH),)
-POETRY := ~/.local/bin/poetry.exe
+POETRY := bash ~/.local/bin/poetry
 else
 POETRY := poetry
 endif
