@@ -6,7 +6,7 @@ ALL = $(PACKAGE) $(TESTS)
 SHELL := bash
 ifeq ($(OS),Windows_NT)
 ifneq ($(GITHUB_PATH),)
-POETRY := ~/.local/bin/poetry
+POETRY := ~/.local/bin/poetry.exe
 else
 POETRY := poetry
 endif
@@ -38,8 +38,6 @@ help:
 	@echo "              Use PYTEST_ARGS to override options"
 
 $(META):
-	env | sort
-	ls ~/.local/bin || true
 	mkdir -p $@
 
 $(META_INSTALL): $(CONFIG_FILE) | $(META)
