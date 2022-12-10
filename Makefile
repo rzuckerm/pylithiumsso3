@@ -29,7 +29,7 @@ help:
 	@echo "              Use PYTEST_ARGS to override options"
 
 $(META):
-	ls ~/.local || true
+	ls ~/.local/bin || true
 	mkdir -p $@
 
 $(META_INSTALL): $(CONFIG_FILE) | $(META)
