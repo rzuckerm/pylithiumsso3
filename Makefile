@@ -4,7 +4,12 @@ CONFIG_FILE = pyproject.toml
 ALL = $(PACKAGE) $(TESTS)
 
 SHELL := bash
+ifeq ($(wildcard $(HOME)/.local/bin/poetry),)
 POETRY := poetry
+else
+POETRY := $(HOME)/.local/bin/poetry
+endif
+
 RUN = $(POETRY) run
 META = .meta
 META_INSTALL = $(META)/.install
@@ -29,7 +34,6 @@ help:
 	@echo "              Use PYTEST_ARGS to override options"
 
 $(META):
-	ls ~/.local/bin || true
 	mkdir -p $@
 
 $(META_INSTALL): $(CONFIG_FILE) | $(META)
