@@ -44,7 +44,7 @@ $(META):
 	mkdir -p $@
 
 $(META_INSTALLS): $(META)/.install-%: $(CONFIG_FILE) | $(META)
-	$(POETRY) install --only $*
+	$(POETRY) install --with $*
 	touch $@
 
 .PHONY: clean
