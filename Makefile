@@ -43,7 +43,7 @@ $(META):
 	mkdir -p $@
 
 $(META_INSTALL_DOC): $(CONFIG_FILE) | $(META)
-	$(POETRY) install --only doc
+	$(POETRY) install --without lint,test
 	touch $@
 
 $(META_INSTALL_LINT): $(CONFIG_FILE) | $(META)
