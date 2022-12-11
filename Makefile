@@ -19,7 +19,6 @@ META := .meta
 META_INSTALL_DOC := $(META)/.install-doc
 META_INSTALL_LINT := $(META)/.install-lint
 META_INSTALL_TEST := $(META)/.install-test
-META_INSTALLS = $(META_INSTALL_DOC) $(META_INSTALL_LINT) $(META_INSTALL_TEST)
 
 PYTEST_ARGS ?= -vvl \
 	--color=yes \
@@ -43,8 +42,20 @@ help:
 $(META):
 	mkdir -p $@
 
+$(META_INSTALL_DOC): $(CONFIG_FILE) | $(META)
+	$(POETRY) install --without lint,test
+	touch $@
+
+$(META_INSTALL_LINT): $(CONFIG_FILE) | $(META)
+	$(POETRY) install --without doc,test
+	touch $@
+
+$(META_INSTALL_TEST): $(CONFIG_FILE) | $(META)
+	$(POETRY) install --without doc,lint
+	touch $@
+
 $(META_INSTALLS): $(META)/.install-%: $(CONFIG_FILE) | $(META)
-	$(POETRY) install --with $*
+	$(POETRY) install --only $*
 	touch $@
 
 .PHONY: clean
