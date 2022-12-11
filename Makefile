@@ -14,9 +14,12 @@ else
 POETRY := poetry
 endif
 
-RUN = $(POETRY) run
-META = .meta
-META_INSTALL = $(META)/.install
+RUN := $(POETRY) run
+META := .meta
+META_INSTALL_DOC := $(META)/.install-doc
+META_INSTALL_LINT := $(META)/.install-lint
+META_INSTALL_TEST := $(META)/.install-test
+META_INSTALLS = $(META_INSTALL_DOC) $(META_INSTALL_LINT) $(META_INSTALL_TEST)
 
 PYTEST_ARGS ?= -vvl \
 	--color=yes \
@@ -40,8 +43,8 @@ help:
 $(META):
 	mkdir -p $@
 
-$(META_INSTALL): $(CONFIG_FILE) | $(META)
-	$(POETRY) install
+$(META_INSTALLS): $(META)/.install-%: $(CONFIG_FILE) | $(META)
+	$(POETRY) install --only $*
 	touch $@
 
 .PHONY: clean
@@ -55,39 +58,39 @@ clean:
 	rm -f .coverage .coverage.*
 
 .PHONY: doc
-doc: $(META_INSTALL)
+doc: $(META_INSTALL_DOC)
 	@echo "*** Building docs ***"
 	$(RUN) sphinx-build -b html docs $(META)/docs
 	@echo ""
 
 .PHONY: format
-format: $(META_INSTALL)
+format: $(META_INSTALL_LINT)
 	$(RUN) black $(ALL)
 
 .PHONY: lint
 lint: lint-black lint-pylint lint-mypy
 
 .PHONY: lint-black
-lint-black: $(META_INSTALL)
+lint-black: $(META_INSTALL_LINT)
 	@echo "*** Linting with black ***"
 	$(RUN) black --check $(ALL)
 	@echo ""
 
 .PHONY: lint-pylint
-lint-pylint: $(META_INSTALL)
+lint-pylint: $(META_INSTALL_LINT)
 	@echo "*** Linting with pylint ***"
 	$(RUN) pylint --rcfile $(CONFIG_FILE) $(PACKAGE)
 	$(RUN) pylint --rcfile $(TESTS)/$(CONFIG_FILE) $(TESTS)
 	@echo ""
 
 .PHONY: lint-mypy
-lint-mypy: $(META_INSTALL)
+lint-mypy: $(META_INSTALL_LINT)
 	@echo "*** Linting with mypy ***"
 	$(RUN) mypy $(ALL)
 	@echo ""
 
 .PHONY: test
-test: $(META_INSTALL)
+test: $(META_INSTALL_TEST)
 	@echo "*** Running tests ***"
 	$(RUN) pytest $(PYTEST_ARGS)
 	@echo ""
