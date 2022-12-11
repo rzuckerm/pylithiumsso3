@@ -43,19 +43,15 @@ $(META):
 	mkdir -p $@
 
 $(META_INSTALL_DOC): $(CONFIG_FILE) | $(META)
-	$(POETRY) install --without lint,test
+	$(POETRY) install --only doc
 	touch $@
 
 $(META_INSTALL_LINT): $(CONFIG_FILE) | $(META)
-	$(POETRY) install --without doc,test
+	$(POETRY) install --without doc
 	touch $@
 
 $(META_INSTALL_TEST): $(CONFIG_FILE) | $(META)
 	$(POETRY) install --without doc,lint
-	touch $@
-
-$(META_INSTALLS): $(META)/.install-%: $(CONFIG_FILE) | $(META)
-	$(POETRY) install --only $*
 	touch $@
 
 .PHONY: clean
